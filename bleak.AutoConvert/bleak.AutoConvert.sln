@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bleak.AutoConvert", "bleak.AutoConvert\bleak.AutoConvert.csproj", "{098A4EFE-06D0-4126-A082-7FE65A0AFA53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bleak.AutoConvert.Tests", "bleak.AutoConvert.Tests\bleak.AutoConvert.Tests.csproj", "{66BBF204-8C34-4C82-9972-AEE2C366DB29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{098A4EFE-06D0-4126-A082-7FE65A0AFA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{098A4EFE-06D0-4126-A082-7FE65A0AFA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{098A4EFE-06D0-4126-A082-7FE65A0AFA53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BBF204-8C34-4C82-9972-AEE2C366DB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BBF204-8C34-4C82-9972-AEE2C366DB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BBF204-8C34-4C82-9972-AEE2C366DB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BBF204-8C34-4C82-9972-AEE2C366DB29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
