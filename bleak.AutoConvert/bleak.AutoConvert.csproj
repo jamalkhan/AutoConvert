@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0</PackageVersion>
+    <PackageVersion>1.0.1.0</PackageVersion>
     <Authors>Jamal Khan @ bleak LLC</Authors>
     <PackageLicenseUrl>https://github.com/jamalkhan/AutoConvert/blob/master/LICENSE</PackageLicenseUrl>
     <Owners>bleak LLC</Owners>
