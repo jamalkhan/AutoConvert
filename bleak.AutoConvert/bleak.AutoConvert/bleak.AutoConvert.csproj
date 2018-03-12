@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageVersion>1.0</PackageVersion>
+    <Authors>Jamal Khan @ bleak LLC</Authors>
+    <PackageLicenseUrl>https://github.com/jamalkhan/AutoConvert/blob/master/LICENSE</PackageLicenseUrl>
+    <Owners>bleak LLC</Owners>
+    <PackageProjectUrl>https://github.com/jamalkhan/AutoConvert</PackageProjectUrl>
+    <Summary>AutoConvert package </Summary>
+    <Title>bleak.AutoConvert</Title>
+    <Description>The bleak LLC AutoConvert library.</Description>
+    <PackageId>bleak.AutoConvert</PackageId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
+  </ItemGroup>
 </Project>
