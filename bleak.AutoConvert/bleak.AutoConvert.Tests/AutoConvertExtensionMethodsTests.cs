@@ -51,6 +51,41 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual((int)1234, destination.NullableIntValSet);
         }
 
+        [TestMethod]
+        public void TestScalarIntConvert()
+        {
+            var intval = "1234".AutoConvert<int>();
+            Assert.AreEqual(1234, intval);
+        }
+
+        [TestMethod]
+        public void TestScalarNullableIntConvert()
+        {
+            var intval = "1234".AutoConvert<int?>();
+            Assert.AreEqual(1234, intval);
+        }
+
+        [TestMethod]
+        public void TestScalarNullableNullIntConvert()
+        {
+            var intval = "fakevalue".AutoConvert<int?>();
+            Assert.AreEqual(null, intval);
+        }
+
+        [TestMethod]
+        public void TestScalarNotNullableNullIntConvert()
+        {
+            try
+            {
+                var intval = "fakevalue".AutoConvert<int>();
+                Assert.IsTrue(false);
+            }
+            catch (System.Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Specified argument was out of the range of valid values.\nParameter name: AutoConvert fakevalue to Int32 failed");
+            }
+        }
+
         public class Source
         {
             public string StrVal { get; set; }

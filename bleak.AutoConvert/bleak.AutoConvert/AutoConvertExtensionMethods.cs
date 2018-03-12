@@ -9,8 +9,21 @@ namespace bleak.AutoConvert
     {
         public static T AutoConvert<T>(this string input)
         {
-            TypeConverter tc = TypeDescriptor.GetConverter(typeof(T));
-            return (T)tc.ConvertFrom(input);
+            try
+            {
+                TypeConverter tc = TypeDescriptor.GetConverter(typeof(T));
+                return (T)tc.ConvertFrom(input);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            var type = typeof(T);
+            if (!type.IsValueType || Nullable.GetUnderlyingType(type) != null)
+            {
+                return default(T);
+            }
+            throw new ArgumentOutOfRangeException($"AutoConvert {input} to {type.Name} failed");
         }
 
         public static void RegisterTypeConverter<T, TC>() where TC : TypeConverter
