@@ -19,6 +19,9 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual(source.Id, destination.Id);
             Assert.AreEqual(source.Name, destination.Name);
             Assert.AreEqual(source.ForeignKey, destination.ForeignKey);
+            Assert.AreEqual("Banana", destination.Name);
+            Assert.AreEqual(id, destination.Id);
+            Assert.AreEqual(foreignKey, destination.ForeignKey);
         }
     }
 
