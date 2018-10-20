@@ -64,6 +64,18 @@ var source = new Dictionary<string, object>()
 var destination = source.AutoConvert<Destination>();
 ```
 
+AutoMap a previously instantiated Object to another previously instantiated Object.
+
+```
+var id = Guid.NewGuid();
+var foreignKey = Guid.NewGuid();
+var source = new Object1() { Id = id, Name = "Banana", ForeignKey = foreignKey };
+var destination = new Object2() { Id = id };
+
+AutoMap.Update(source, destination);
+```
+
+
 ### See Also
 
 Please refer to the github project.

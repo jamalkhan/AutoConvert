@@ -82,7 +82,7 @@ namespace bleak.AutoConvert.Tests
             }
             catch (System.Exception ex)
             {
-                Assert.AreEqual(ex.Message, "Specified argument was out of the range of valid values.\nParameter name: AutoConvert fakevalue to Int32 failed");
+                Assert.IsTrue(ex.Message.Contains("AutoConvert fakevalue to Int32 failed"));
             }
         }
 
