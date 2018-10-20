@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.1.0</PackageVersion>
+    <PackageVersion>2.0.0.0</PackageVersion>
     <Authors>Jamal Khan @ bleak LLC</Authors>
     <PackageLicenseUrl>https://github.com/jamalkhan/AutoConvert/blob/master/LICENSE</PackageLicenseUrl>
     <Owners>bleak LLC</Owners>
@@ -12,8 +12,10 @@
     <Title>bleak.AutoConvert</Title>
     <Description>The bleak LLC AutoConvert library.</Description>
     <PackageId>bleak.AutoConvert</PackageId>
-    <Version>1.1.0.0</Version>
+    <Version>2.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
