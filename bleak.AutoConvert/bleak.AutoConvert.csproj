@@ -12,6 +12,8 @@
     <Title>bleak.AutoConvert</Title>
     <Description>The bleak LLC AutoConvert library.</Description>
     <PackageId>bleak.AutoConvert</PackageId>
+    <Version>1.1.0.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
