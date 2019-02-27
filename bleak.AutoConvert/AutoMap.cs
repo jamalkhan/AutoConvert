@@ -12,12 +12,11 @@ namespace bleak.AutoConvert
             {
                 throw new ArgumentNullException("sourceObject");
             }
-            if (output== null)
+            if (output == null)
             {
                 throw new ArgumentNullException("destinationObject");
             }
-
-
+            
             var convertProperties = TypeDescriptor.GetProperties(output.GetType()).Cast<PropertyDescriptor>();
             var entityProperties = TypeDescriptor.GetProperties(input.GetType()).Cast<PropertyDescriptor>();
             foreach (var entityProperty in entityProperties)
@@ -28,14 +27,7 @@ namespace bleak.AutoConvert
                 {
                     if (entityProperty.GetValue(input) != null)
                     {
-                        if (convertProperty.PropertyType.Name == "Nullable`1")
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(entityProperty.GetValue(input), convertProperty.PropertyType.GetGenericArguments().FirstOrDefault()));
-                        }
-                        else
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(entityProperty.GetValue(input), convertProperty.PropertyType));
-                        }
+                        PropertySetter.SetValue(output, convertProperty, entityProperty.GetValue(input).ToString());
                     }
                 }
             }

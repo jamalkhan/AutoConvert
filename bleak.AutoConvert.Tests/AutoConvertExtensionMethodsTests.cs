@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace bleak.AutoConvert.Tests
@@ -17,6 +18,7 @@ namespace bleak.AutoConvert.Tests
         [TestMethod]
         public void TestDictionaryConvert()
         {
+            Guid val = Guid.NewGuid();
             var source = new Dictionary<string, object>()
             {
                 { "StrVal","Banana" },
@@ -26,9 +28,12 @@ namespace bleak.AutoConvert.Tests
                 { "NullableIntValSet", 1234 },
                 { "MyEnum", "Value2" },
                 { "NullableEnumSet", "Value2" },
+                { "GuidVal", val.ToString() },
+                { "NullableGuidValSet", val.ToString() },
+
             };
 
-            var destination = source.AutoConvert<Destination>();
+            var destination = source.Convert<Destination>();
 
             Assert.AreEqual("Banana", destination.StrVal);
             Assert.AreEqual((long)12345, destination.LongVal);
@@ -40,12 +45,15 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual(MyEnum.Value2, destination.MyEnum);
             Assert.AreEqual(null, destination.NullableEnumNull);
             Assert.AreEqual(MyEnum.Value2, destination.NullableEnumSet);
+            Assert.AreEqual(val, destination.GuidVal);
+            Assert.AreEqual(val, destination.NullableGuidValSet);
         }
 
 
         [TestMethod]
         public void TestObjectConvert()
         {
+            Guid val = Guid.NewGuid();
             var source = new Source();
             source.StrVal = "Banana";
             source.LongVal = "12345";
@@ -54,8 +62,10 @@ namespace bleak.AutoConvert.Tests
             source.NullableIntValSet = "1234";
             source.MyEnum = "Value2";
             source.NullableEnumSet = "Value2";
+            source.GuidVal = val.ToString();
+            source.NullableGuidValSet = val.ToString();
 
-            var destination = source.AutoConvert<Destination>();
+            var destination = source.Convert<Destination>();
 
             Assert.AreEqual("Banana", destination.StrVal);
             Assert.AreEqual((long)12345, destination.LongVal);
@@ -67,26 +77,28 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual(MyEnum.Value2, destination.MyEnum);
             Assert.AreEqual(null, destination.NullableEnumNull);
             Assert.AreEqual(MyEnum.Value2, destination.NullableEnumSet);
+            Assert.AreEqual(val, destination.GuidVal);
+            Assert.AreEqual(val, destination.NullableGuidValSet);
         }
 
         [TestMethod]
         public void TestScalarIntConvert()
         {
-            var intval = "1234".AutoConvert<int>();
+            var intval = "1234".Convert<int>();
             Assert.AreEqual(1234, intval);
         }
 
         [TestMethod]
         public void TestScalarNullableIntConvert()
         {
-            var intval = "1234".AutoConvert<int?>();
+            var intval = "1234".Convert<int?>();
             Assert.AreEqual(1234, intval);
         }
 
         [TestMethod]
         public void TestScalarNullableNullIntConvert()
         {
-            var intval = "fakevalue".AutoConvert<int?>();
+            var intval = "fakevalue".Convert<int?>();
             Assert.AreEqual(null, intval);
         }
 
@@ -95,12 +107,12 @@ namespace bleak.AutoConvert.Tests
         {
             try
             {
-                var intval = "fakevalue".AutoConvert<int>();
+                var intval = "fakevalue".Convert<int>();
                 Assert.IsTrue(false);
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex.Message.Contains("AutoConvert fakevalue to Int32 failed"));
+                Assert.IsTrue(ex.Message.Contains("Convert fakevalue to Int32 failed"));
             }
         }
 
@@ -113,6 +125,9 @@ namespace bleak.AutoConvert.Tests
             public string IntVal { get; set; }
             public string NullableIntValNull { get; set; }
             public string NullableIntValSet { get; set; }
+            public string GuidVal { get; set; }
+            public string NullableGuidValNull { get; set; }
+            public string NullableGuidValSet { get; set; }
             public string MyEnum { get; set; }
             public string NullableEnumNull { get; set; }
             public string NullableEnumSet { get; set; }
@@ -127,6 +142,9 @@ namespace bleak.AutoConvert.Tests
             public int IntVal { get; set; }
             public int? NullableIntValNull { get; set; }
             public int? NullableIntValSet { get; set; }
+            public Guid GuidVal { get; set; }
+            public Guid? NullableGuidValNull { get; set; }
+            public Guid? NullableGuidValSet { get; set; }
             public MyEnum MyEnum { get; set; }
             public MyEnum? NullableEnumNull { get; set; }
             public MyEnum? NullableEnumSet { get; set; }

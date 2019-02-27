@@ -13,7 +13,7 @@ namespace bleak.AutoConvert
         /// <returns>The convert.</returns>
         /// <param name="input">Input.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static T AutoConvert<T>(this string input)
+        public static T Convert<T>(this string input)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace bleak.AutoConvert
         /// <param name="input">Input.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <remarks>Does not recurse, therefore does not AutoConvert subclasses</remarks>
-        public static T AutoConvert<T>(this Dictionary<string, object> input)
+        public static T Convert<T>(this Dictionary<string, object> input)
         {
             if (input == null)
             {
@@ -64,39 +64,14 @@ namespace bleak.AutoConvert
                 {
                     if (kv.Value != null)
                     {
-                        SetValue(output, convertProperty, kv.Value.ToString());
+                        PropertySetter.SetValue(output, convertProperty, kv.Value.ToString());
                     }
                 }
             }
             return (T)output;
         }
 
-        private static void SetValue(object output, PropertyDescriptor convertProperty, string value)
-        {
-            if (convertProperty.PropertyType.IsEnum)
-            {
-                convertProperty.SetValue(output, Enum.Parse(convertProperty.PropertyType, value: value, ignoreCase: true));
-            }
-            else if (convertProperty.PropertyType.Name == "Nullable`1")
-            {
-                var genericType = convertProperty.PropertyType.GenericTypeArguments.FirstOrDefault();
-                if (genericType != null && genericType.IsEnum)
-                {
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        convertProperty.SetValue(output, Enum.Parse(genericType, value: value, ignoreCase: true));
-                    }
-                }
-                else
-                {
-                    convertProperty.SetValue(output, Convert.ChangeType(value, genericType));
-                }
-            }
-            else
-            {
-                convertProperty.SetValue(output, Convert.ChangeType(value, convertProperty.PropertyType));
-            }
-        }
+        
 
         /// <summary>
         /// Converts an Object to another type with properties of the same name.
@@ -105,7 +80,7 @@ namespace bleak.AutoConvert
         /// <param name="input">Input.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         /// <remarks>Does not recurse, therefore does not AutoConvert subclasses</remarks>
-        public static T AutoConvert<T>(this object input) where T : new()
+        public static T Convert<T>(this object input) where T : new()
         {
             if (input == null)
             {
@@ -123,7 +98,7 @@ namespace bleak.AutoConvert
                 {
                     if (entityProperty.GetValue(input) != null)
                     {
-                        SetValue(output, convertProperty, entityProperty.GetValue(input).ToString());
+                        PropertySetter.SetValue(output, convertProperty, entityProperty.GetValue(input).ToString());
                     }
                 }
             }
