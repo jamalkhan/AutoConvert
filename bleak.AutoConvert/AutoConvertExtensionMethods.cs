@@ -64,18 +64,38 @@ namespace bleak.AutoConvert
                 {
                     if (kv.Value != null)
                     {
-                        if (convertProperty.PropertyType.Name == "Nullable`1")
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(kv.Value, convertProperty.PropertyType.GetGenericArguments().FirstOrDefault()));
-                        }
-                        else
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(kv.Value, convertProperty.PropertyType));
-                        }
+                        SetValue(output, convertProperty, kv.Value.ToString());
                     }
                 }
             }
             return (T)output;
+        }
+
+        private static void SetValue(object output, PropertyDescriptor convertProperty, string value)
+        {
+            if (convertProperty.PropertyType.IsEnum)
+            {
+                convertProperty.SetValue(output, Enum.Parse(convertProperty.PropertyType, value: value, ignoreCase: true));
+            }
+            else if (convertProperty.PropertyType.Name == "Nullable`1")
+            {
+                var genericType = convertProperty.PropertyType.GenericTypeArguments.FirstOrDefault();
+                if (genericType != null && genericType.IsEnum)
+                {
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        convertProperty.SetValue(output, Enum.Parse(genericType, value: value, ignoreCase: true));
+                    }
+                }
+                else
+                {
+                    convertProperty.SetValue(output, Convert.ChangeType(value, genericType));
+                }
+            }
+            else
+            {
+                convertProperty.SetValue(output, Convert.ChangeType(value, convertProperty.PropertyType));
+            }
         }
 
         /// <summary>
@@ -103,14 +123,7 @@ namespace bleak.AutoConvert
                 {
                     if (entityProperty.GetValue(input) != null)
                     {
-                        if (convertProperty.PropertyType.Name == "Nullable`1")
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(entityProperty.GetValue(input), convertProperty.PropertyType.GetGenericArguments().FirstOrDefault()));
-                        }
-                        else
-                        {
-                            convertProperty.SetValue(output, Convert.ChangeType(entityProperty.GetValue(input), convertProperty.PropertyType));
-                        }
+                        SetValue(output, convertProperty, entityProperty.GetValue(input).ToString());
                     }
                 }
             }

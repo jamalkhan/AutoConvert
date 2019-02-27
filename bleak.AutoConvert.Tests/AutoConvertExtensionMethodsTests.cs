@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace bleak.AutoConvert.Tests
 {
+    public enum MyEnum
+    {
+        Value1,
+        Value2,
+        Value3,
+        Value4
+    }
+
     [TestClass]
     public class AutoConvertExtensionMethodsTests
     {
@@ -16,6 +24,8 @@ namespace bleak.AutoConvert.Tests
                 { "IntVal", 1234 },
                 { "NullableLongValSet", 12345 },
                 { "NullableIntValSet", 1234 },
+                { "MyEnum", "Value2" },
+                { "NullableEnumSet", "Value2" },
             };
 
             var destination = source.AutoConvert<Destination>();
@@ -27,6 +37,9 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual(null, destination.NullableIntValNull);
             Assert.AreEqual((long)12345, destination.NullableLongValSet);
             Assert.AreEqual((int)1234, destination.NullableIntValSet);
+            Assert.AreEqual(MyEnum.Value2, destination.MyEnum);
+            Assert.AreEqual(null, destination.NullableEnumNull);
+            Assert.AreEqual(MyEnum.Value2, destination.NullableEnumSet);
         }
 
 
@@ -39,6 +52,8 @@ namespace bleak.AutoConvert.Tests
             source.IntVal = "1234";
             source.NullableLongValSet = "12345";
             source.NullableIntValSet = "1234";
+            source.MyEnum = "Value2";
+            source.NullableEnumSet = "Value2";
 
             var destination = source.AutoConvert<Destination>();
 
@@ -49,6 +64,9 @@ namespace bleak.AutoConvert.Tests
             Assert.AreEqual(null, destination.NullableIntValNull);
             Assert.AreEqual((long)12345, destination.NullableLongValSet);
             Assert.AreEqual((int)1234, destination.NullableIntValSet);
+            Assert.AreEqual(MyEnum.Value2, destination.MyEnum);
+            Assert.AreEqual(null, destination.NullableEnumNull);
+            Assert.AreEqual(MyEnum.Value2, destination.NullableEnumSet);
         }
 
         [TestMethod]
@@ -95,6 +113,9 @@ namespace bleak.AutoConvert.Tests
             public string IntVal { get; set; }
             public string NullableIntValNull { get; set; }
             public string NullableIntValSet { get; set; }
+            public string MyEnum { get; set; }
+            public string NullableEnumNull { get; set; }
+            public string NullableEnumSet { get; set; }
         }
 
         public class Destination
@@ -106,6 +127,9 @@ namespace bleak.AutoConvert.Tests
             public int IntVal { get; set; }
             public int? NullableIntValNull { get; set; }
             public int? NullableIntValSet { get; set; }
+            public MyEnum MyEnum { get; set; }
+            public MyEnum? NullableEnumNull { get; set; }
+            public MyEnum? NullableEnumSet { get; set; }
         }
     }
 }
